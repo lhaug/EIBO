@@ -33,7 +33,7 @@ public class MP3Player {
     }
 
     public void volume(float value){
-        audioplayer.setVolume(value);
+        audioplayer.setGain(value);
     }
 
     public void stop(){
