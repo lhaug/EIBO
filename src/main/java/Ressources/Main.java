@@ -9,7 +9,7 @@ public class Main {
         StaticScanner sc = new StaticScanner();
         String s;
         String[] command;
-        controller c = new controller();
+        Controller c = new Controller();
 
         do{
             s = sc.nextString();

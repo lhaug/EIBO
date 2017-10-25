@@ -1,6 +1,5 @@
 package UEB01;
 
-import ddf.minim.AudioPlayer;
 import de.hsrm.mi.eibo.simpleplayer.SimpleAudioPlayer;
 import de.hsrm.mi.eibo.simpleplayer.SimpleMinim;
 
@@ -33,7 +32,7 @@ public class MP3Player {
     }
 
     public void volume(float value){
-        audioplayer.setVolume(value);
+        audioplayer.setGain(value);
     }
 
     public void stop(){

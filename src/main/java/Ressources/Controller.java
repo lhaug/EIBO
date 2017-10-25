@@ -1,13 +1,10 @@
 package Ressources;
-
-
 import UEB01.MP3Player;
+public class Controller {
+    private MP3Player player  = new MP3Player();
 
-public class controller {
-    private  MP3Player player  = new MP3Player();
 
-
-    public controller(){
+    public Controller(){
     }
 
 
