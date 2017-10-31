@@ -10,20 +10,24 @@ public class MP3Player {
     SimpleAudioPlayer audioplayer;
 
 
-
+    Boolean playing;
     public MP3Player(){
+        this.playing=false;
     }
 
     public void play(String filename){
+        playing=true;
         audioplayer = minim.loadMP3File(filename);
         audioplayer.play();
     }
 
     public void pause(){
+        playing=false;
         audioplayer.pause();
     }
 
     public void play(){
+        playing=true;
         audioplayer.play();
     }
 
@@ -38,4 +42,21 @@ public class MP3Player {
     public void stop(){
         minim.stop();
     }
+
+    public String getTitle(){
+        return audioplayer.getMetaData().title();
+    }
+    public String getAlbum(){
+        return audioplayer.getMetaData().album();
+    }
+    public String getAuthor(){
+        return audioplayer.getMetaData().author();
+    }
+    public int getLength(){
+        return audioplayer.getMetaData().length();
+    }
+    public Boolean isPlaying(){
+        return playing;
+    }
+
 }

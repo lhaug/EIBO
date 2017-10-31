@@ -25,7 +25,6 @@ public class Controller {
                     break;
 
                 case "balance":
-
                     player.balance(Float.parseFloat(command[i+1]));
                     break;
 
