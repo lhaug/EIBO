@@ -12,7 +12,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 
 import javax.swing.text.Position;
@@ -23,6 +26,7 @@ public class Main extends Application {
     private Label albumtitel,songtitel,interpret,length;
     private Button play,pause,stop;
     private ProgressBar progress;
+    private javafx.scene.image.ImageView image1;
     private static MP3Player player = new MP3Player();
     public static void main(String[] args){
         launch(args);
@@ -55,17 +59,29 @@ public class Main extends Application {
         stop = new Button("stop");
         stop.setOnAction(e -> player.stop());
 
+
         //progressbar
         progress = new ProgressBar();
         progress.setProgress(0);
+        image1 = new javafx.scene.image.ImageView();
+
 
         //Layout
         HBox progressbar = new HBox(20);
         progressbar.getChildren().add(progress);
+        progressbar.setAlignment(Pos.BASELINE_CENTER);
+        HBox.setHgrow(progress,Priority.ALWAYS);
         HBox PlayPauseStop = new HBox(20);
         PlayPauseStop.setAlignment(Pos.BASELINE_CENTER);
         PlayPauseStop.setPadding(new Insets(0,10,20,10));
         PlayPauseStop.getChildren().addAll(play,pause,stop);
+        HBox.setHgrow(PlayPauseStop, Priority.SOMETIMES);
+        GridPane grid = new GridPane();
+        grid.setPadding(new Insets(20));
+        grid.add(progressbar,1,1);
+        grid.add(PlayPauseStop,1,2);
+        GridPane.setMargin(progressbar,new Insets(10));
+        grid.setAlignment(Pos.BASELINE_CENTER);
         HBox leiste = new HBox(10);
         leiste.getChildren().addAll(albumtitel,songtitel,interpret);
 
@@ -73,8 +89,10 @@ public class Main extends Application {
         leiste.setAlignment(Pos.BASELINE_CENTER);
         BorderPane layout1 = new BorderPane();
         layout1.setTop(leiste);
-        layout1.setBottom(PlayPauseStop);
-        layout1.setCenter(progressbar);
+        layout1.setBottom(grid);
+
+
+
 
         //Scene
         scene = new Scene(layout1,300  ,300);

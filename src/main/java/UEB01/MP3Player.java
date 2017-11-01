@@ -2,6 +2,7 @@ package UEB01;
 
 import de.hsrm.mi.eibo.simpleplayer.SimpleAudioPlayer;
 import de.hsrm.mi.eibo.simpleplayer.SimpleMinim;
+import javafx.scene.image.Image;
 
 public class MP3Player {
 
@@ -55,6 +56,7 @@ public class MP3Player {
     public int getLength(){
         return audioplayer.getMetaData().length();
     }
+    public Image getCover() { return null;}
     public Boolean isPlaying(){
         return playing;
     }
