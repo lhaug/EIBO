@@ -1,4 +1,4 @@
-package UEB01;
+package main.java.UEB01;
 
 import de.hsrm.mi.eibo.simpleplayer.SimpleAudioPlayer;
 import de.hsrm.mi.eibo.simpleplayer.SimpleMinim;
@@ -6,7 +6,8 @@ import javafx.scene.image.Image;
 
 public class MP3Player {
 
-
+    PlaylistManager playlistManager = new PlaylistManager();
+    Playlist playlist = new Playlist("1");
     SimpleMinim minim = new SimpleMinim(true);
     SimpleAudioPlayer audioplayer;
 
@@ -18,8 +19,9 @@ public class MP3Player {
 
     public void play(String filename){
         playing=true;
-        audioplayer = minim.loadMP3File(filename);
-        audioplayer.play();
+
+            audioplayer = minim.loadMP3File(filename);
+            audioplayer.play();
     }
 
     public void pause(){
@@ -29,7 +31,10 @@ public class MP3Player {
 
     public void play(){
         playing=true;
-        audioplayer.play();
+        for (int i=0;i<=playlist.getLength();i++) {
+            audioplayer = minim.loadMP3File(playlist.getTrack(i).getFile());
+            audioplayer.play();
+        }
     }
 
     public void balance(float value){
@@ -42,6 +47,27 @@ public class MP3Player {
 
     public void stop(){
         minim.stop();
+    }
+
+    public void skip(){
+
+    }
+    public void skipBack(){
+
+    }
+    public void shuffle(Boolean on){
+        if(on){
+           String f = playlistManager.getPlaylist(0).getTrack((int)(Math.random()*playlistManager.getPlaylist(0).getLength())).getFile();
+            play(f);
+        }
+    }
+    public void repeat(Boolean on){
+        if(on){audioplayer.loop();}
+
+
+    }
+    public void setPlaylist(Playlist actPlaylist){
+        playlistManager.setPlaylist(actPlaylist);
     }
 
     public String getTitle(){
