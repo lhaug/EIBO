@@ -1,6 +1,8 @@
-package Ressources;
+package main.java.Ressources;
 
-import UEB01.MP3Player;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.image.Image;
+import main.java.UEB01.MP3Player;
 import com.sun.javaws.progress.Progress;
 import de.hsrm.mi.prog.util.StaticScanner;
 
@@ -17,11 +19,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
+import main.java.UEB01.Playlist;
+import main.java.UEB01.PlaylistManager;
 
 import javax.swing.text.Position;
 import javax.swing.text.html.ImageView;
 
+import java.io.*;
 public class Main extends Application {
+    private BufferedReader br;
     private Scene scene;
     private Label albumtitel,songtitel,interpret,length;
     private Button play,pause,stop;
@@ -30,7 +36,7 @@ public class Main extends Application {
     private static MP3Player player = new MP3Player();
     public static void main(String[] args){
         launch(args);
-        /**StaticScanner sc = new StaticScanner();
+     /**   StaticScanner sc = new StaticScanner();
         String s;
         String[] command;
         Controller c = new Controller();
@@ -39,12 +45,16 @@ public class Main extends Application {
             s = sc.nextString();
             command = s.split(" ");
             c.doCommand(command);
-        }while(!s.equalsIgnoreCase("quit"));**/
+        }while(!s.equalsIgnoreCase("quit")); **/
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-
+    public void start(Stage primaryStage) throws IOException,Exception {
+        PlaylistManager manager = new PlaylistManager();
+        Playlist x = new Playlist("#1");
+        player.setPlaylist(manager.createTrack(x));
+        String u = "http://www.pngmart.com/image/29253";
+        Image im1 = SwingFXUtils.toFXImage(player.getCover(),null);
         Stage window = primaryStage;
         //Label
         albumtitel = new Label("Album");
@@ -53,7 +63,14 @@ public class Main extends Application {
 
         //Buttons
         play = new Button("play");
-        play.setOnAction(e -> play("01_LastMembrane.mp3"));
+        play.setStyle("-fx-graphic: url('http://www.pngmart.com/image/29253')");
+        play.setOnAction(e -> {
+            try {
+                play(manager.createTrack(new Playlist("#1")).getTrack(1).getFile());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        });
         pause = new Button("pause");
         pause.setOnAction(e -> player.pause());
         stop = new Button("stop");
@@ -64,6 +81,7 @@ public class Main extends Application {
         progress = new ProgressBar();
         progress.setProgress(0);
         image1 = new javafx.scene.image.ImageView();
+        image1.setImage(im1);
 
 
         //Layout
@@ -90,6 +108,7 @@ public class Main extends Application {
         BorderPane layout1 = new BorderPane();
         layout1.setTop(leiste);
         layout1.setBottom(grid);
+        layout1.setCenter(image1);
 
 
 

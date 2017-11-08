@@ -2,16 +2,18 @@ package main.java.UEB01;
 
 import de.hsrm.mi.eibo.simpleplayer.SimpleAudioPlayer;
 import de.hsrm.mi.eibo.simpleplayer.SimpleMinim;
-import javafx.scene.image.Image;
+
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class MP3Player {
 
-    PlaylistManager playlistManager = new PlaylistManager();
-    Playlist playlist = new Playlist("1");
+
+    Playlist actPlaylist;
     SimpleMinim minim = new SimpleMinim(true);
     SimpleAudioPlayer audioplayer;
-
-
     Boolean playing;
     public MP3Player(){
         this.playing=false;
@@ -31,10 +33,7 @@ public class MP3Player {
 
     public void play(){
         playing=true;
-        for (int i=0;i<=playlist.getLength();i++) {
-            audioplayer = minim.loadMP3File(playlist.getTrack(i).getFile());
-            audioplayer.play();
-        }
+        audioplayer.play();
     }
 
     public void balance(float value){
@@ -50,15 +49,17 @@ public class MP3Player {
     }
 
     public void skip(){
+        play(actPlaylist.getTrack(2).getFile());
 
     }
     public void skipBack(){
-
+        play(actPlaylist.getTrack(1).getFile());
     }
     public void shuffle(Boolean on){
         if(on){
-           String f = playlistManager.getPlaylist(0).getTrack((int)(Math.random()*playlistManager.getPlaylist(0).getLength())).getFile();
-            play(f);
+
+            play(actPlaylist.getTrack(
+                    (int) (Math.random()*actPlaylist.getLength())).getFile());
         }
     }
     public void repeat(Boolean on){
@@ -66,10 +67,9 @@ public class MP3Player {
 
 
     }
-    public void setPlaylist(Playlist actPlaylist){
-        playlistManager.setPlaylist(actPlaylist);
+    public void setPlaylist(Playlist playlist){
+        actPlaylist=playlist;
     }
-
     public String getTitle(){
         return audioplayer.getMetaData().title();
     }
@@ -82,7 +82,7 @@ public class MP3Player {
     public int getLength(){
         return audioplayer.getMetaData().length();
     }
-    public Image getCover() { return null;}
+    public BufferedImage getCover() throws IOException { return actPlaylist.getTrack(0).getImage();}
     public Boolean isPlaying(){
         return playing;
     }
