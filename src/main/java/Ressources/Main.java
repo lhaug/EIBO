@@ -38,11 +38,12 @@ public class Main extends Application {
     private Slider volume;
     private ListView<String>  lv;
     private ImageView image1;
+    private Track actTrack;
     private static MP3Player player = new MP3Player();
-    public static void main(String[] args){
-
+    public static void main(String[] args)throws IOException{
         launch(args);
-     /**   StaticScanner sc = new StaticScanner();
+
+      /**StaticScanner sc = new StaticScanner();
         String s;
         String[] command;
         Controller c = new Controller();
@@ -51,15 +52,15 @@ public class Main extends Application {
             s = sc.nextString();
             command = s.split(" ");
             c.doCommand(command);
-        }while(!s.equalsIgnoreCase("quit")); **/
+        }while(!s.equalsIgnoreCase("quit"));
+        **/
     }
-
     @Override
     public void start(Stage primaryStage) throws IOException,Exception {
         PlaylistManager manager = new PlaylistManager();
         Playlist x = new Playlist("#1");
         player.setPlaylist(manager.createTrack(x));
-        String u = "http://www.pngmart.com/image/29253";
+        actTrack = x.getTrack(0);
         Image im1 = SwingFXUtils.toFXImage(player.getCover(),null);
         Stage window = primaryStage;
         //Label
@@ -68,25 +69,17 @@ public class Main extends Application {
         interpret = new Label("Author");
 
         //Buttons
-        play = new Button("►");
-        play.setStyle("-fx-graphic: url('http://www.pngmart.com/image/29253')");
-        play.setOnAction(event -> {
-            try {
-                play(manager.createTrack(new Playlist("#1")).getTrack(1).getFile());
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-        });
+        play = new Button("play");
+        play.setOnAction(e -> { play(actTrack.getFile()); });
 
 
         pause = new Button("pause");
-        pause.setOnAction(event -> player.pause());
+        pause.setOnAction(e -> player.pause());
         stop = new Button("stop");
-        stop.setOnAction(event -> player.stop());
+        stop.setOnAction(e -> player.stop());
 
 
         //Image
-
         image1 = new ImageView();
         image1.setImage(im1);
         image1.setPreserveRatio(true);
@@ -104,17 +97,20 @@ public class Main extends Application {
         progressbar.getChildren().add(volume);
         progressbar.setAlignment(Pos.BASELINE_CENTER);
         HBox.setHgrow(volume,Priority.ALWAYS);
+
         HBox PlayPauseStop = new HBox(20);
         PlayPauseStop.setAlignment(Pos.BASELINE_CENTER);
         PlayPauseStop.setPadding(new Insets(0,10,20,10));
         PlayPauseStop.getChildren().addAll(play,pause,stop);
         HBox.setHgrow(PlayPauseStop, Priority.ALWAYS);
+
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(20));
         grid.add(progressbar,1,1);
         grid.add(PlayPauseStop,1,2);
         GridPane.setMargin(progressbar,new Insets(10));
         grid.setAlignment(Pos.BASELINE_CENTER);
+
         HBox leiste = new HBox(10);
         leiste.getChildren().addAll(albumtitel,songtitel,interpret);
 
@@ -141,14 +137,13 @@ public class Main extends Application {
         //Scene
         scene = new Scene(layout1,500  ,500);
         scene2 = new Scene(playlistlayout,500,500);
-        window.setScene(scene2);
+        window.setScene(scene);
         window.setTitle("MP3Player");
         window.show();
     }
     public void play(String filename){
 
         player.play(filename);
-
         albumtitel.setText(player.getAlbum());
         interpret.setText(player.getAuthor());
         songtitel.setText(player.getTitle());

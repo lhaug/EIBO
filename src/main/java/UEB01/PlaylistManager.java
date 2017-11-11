@@ -16,12 +16,14 @@ public class PlaylistManager {
     public Playlist createTrack(Playlist playlist)throws IOException{
         BufferedReader br = new BufferedReader(new FileReader("playlist.M3U"));
         String f;
-        while(!(f = br.readLine()).equalsIgnoreCase("")) {
+
+        while(!(f=br.readLine()).equalsIgnoreCase("")) {
             Mp3File mp3;
             try {
                 mp3 = new Mp3File(f);
                 Track t = new Track(f, mp3.getId3v1Tag().getAlbum(), mp3.getId3v1Tag().getTitle(), mp3.getId3v1Tag().getArtist(),mp3.getId3v2Tag().getAlbumImage(), mp3.getId3v2Tag().getLength());
                 playlist.add(t);
+
 
             } catch (Exception e) {
                 e.printStackTrace();

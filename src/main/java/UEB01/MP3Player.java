@@ -7,6 +7,7 @@ import de.hsrm.mi.eibo.simpleplayer.SimpleMinim;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MP3Player {
 
@@ -21,9 +22,8 @@ public class MP3Player {
 
     public void play(String filename){
         playing=true;
-
-            audioplayer = minim.loadMP3File(filename);
-            audioplayer.play();
+        audioplayer = minim.loadMP3File(filename);
+        audioplayer.play();
     }
 
     public void pause(){
@@ -69,6 +69,7 @@ public class MP3Player {
     }
     public void setPlaylist(Playlist playlist){
         actPlaylist=playlist;
+
     }
     public String getTitle(){
         return audioplayer.getMetaData().title();

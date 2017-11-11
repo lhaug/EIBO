@@ -1,9 +1,6 @@
 package main.java.UEB01;
 
-import com.mpatric.mp3agic.Mp3File;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +9,7 @@ public class Playlist {
     int i = 0;
     List<Track> playlist = new ArrayList<>();
     public Playlist(String name){ }
+
     public void add(Track t){
         playlist.add(i,t);
         i++;

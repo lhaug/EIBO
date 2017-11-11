@@ -1,10 +1,6 @@
 package main.java.UEB01;
 
-import com.mpatric.mp3agic.Mp3File;
-import javazoom.spi.mpeg.sampled.file.tag.MP3Tag;
-
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -19,6 +15,7 @@ public class Track {
     double length;
 
     public Track(String file,String Album, String Titel, String Author,byte[] b, double length){
+        this.file=file;
         this.Album=Album;
         this.Titel=Titel;
         this.Author=Author;

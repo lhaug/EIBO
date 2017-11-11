@@ -8,7 +8,7 @@ public class TrackSearcher {
     static BufferedWriter bw;
 
     public static void main(String[] args) throws IOException {
-        walk("C:\\users\\Florian Ortmann\\Music");
+        walk("C:\\users\\Florian\\Music");
 
     }
 
