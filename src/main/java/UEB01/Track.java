@@ -31,9 +31,9 @@ public class Track {
         return file;
     }
 
-    public void setFile(String file) {
-        this.file = file;
-    }
+    public String getAlbum(){return Album;}
+
+    public String getAuthor(){ return Author;}
 
     public BufferedImage getImage() throws IOException {
         BufferedImage bi = ImageIO.read(new ByteArrayInputStream(b));

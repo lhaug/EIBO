@@ -17,7 +17,7 @@ public class PlaylistManager {
         BufferedReader br = new BufferedReader(new FileReader("playlist.M3U"));
         String f;
 
-        while(!(f=br.readLine()).equalsIgnoreCase("")) {
+        while((f=br.readLine())!=null) {
             Mp3File mp3;
             try {
                 mp3 = new Mp3File(f);
