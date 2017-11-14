@@ -6,12 +6,15 @@ import ddf.minim.Minim;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlaylistManager {
     private List<Playlist> playlists;
     private Playlist list;
+
     public PlaylistManager(){
+        playlists = new ArrayList<>();
     }
     public Playlist createTrack(Playlist playlist)throws IOException{
         BufferedReader br = new BufferedReader(new FileReader("playlist.M3U"));
@@ -32,8 +35,15 @@ public class PlaylistManager {
         }
         return playlist;
     }
-    public List<Playlist> findPlaylist(String name){
-        return null;
+    public Playlist findPlaylist(String name){
+        list = new Playlist("");
+        for (Playlist playlist:playlists
+             ) { if(playlist.getName().equalsIgnoreCase(name)){
+                 list = playlist;
+        }
+
+        }
+        return list;
     }
     public Playlist getAllTracks(){
         return null;
@@ -43,6 +53,7 @@ public class PlaylistManager {
     public void deletePlaylist(Playlist actPlaylist){
         playlists.remove(actPlaylist);
     }
+
     public void updatePlaylist(Playlist actPlaylist){
         deletePlaylist(actPlaylist);
         setPlaylist(actPlaylist);

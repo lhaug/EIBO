@@ -33,7 +33,7 @@ public class Controllbar {
     public void init(BorderPane pane){
         play = new Button("\u23F5");
         play.setPrefSize(35,10);
-        play.setOnAction(e -> player.play(playlist.getTrack(0).getFile()));
+        play.setOnAction(e -> player.play(playlist));
         pause = new Button("\u23F8");
         pause.setPrefSize(35,10);
         pause.setOnAction(e -> player.pause());

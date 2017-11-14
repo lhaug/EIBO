@@ -75,6 +75,8 @@ public class Main extends Application {
         imagePane = new ImagePane(player,scene2,window);
         header = new Header();
         listPane = new ListPane(x);
+
+
         //Layout
         layout1 = new BorderPane();
         header.init(layout1);
@@ -82,9 +84,7 @@ public class Main extends Application {
         imagePane.init(layout1);
         layout1.setPrefSize(250,400);
         BorderPane.setAlignment(layout1,Pos.BASELINE_CENTER);
-
-
-
+        //2. Layout
         playlistlayout = new BorderPane();
         controllbar.init(playlistlayout);
         listPane.init(playlistlayout);
@@ -101,6 +101,7 @@ public class Main extends Application {
         window.setTitle("MP3Player");
         window.show();
     }
+
 
     public void play(String filename){
         player.play(filename);

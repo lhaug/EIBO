@@ -16,6 +16,8 @@ public class MP3Player {
     SimpleMinim minim = new SimpleMinim(true);
     SimpleAudioPlayer audioplayer;
     Boolean playing;
+    int track = 0;
+
     public MP3Player(){
         this.playing=false;
     }
@@ -24,6 +26,17 @@ public class MP3Player {
         playing=true;
         audioplayer = minim.loadMP3File(filename);
         audioplayer.play();
+    }
+
+    public void play(Playlist playlist){
+        actPlaylist = playlist;
+        audioplayer = minim.loadMP3File(actPlaylist.getTrack(track).getFile());
+        audioplayer.play();
+
+        while(!audioplayer.isPlaying() && track < playlist.getLength()){
+            audioplayer = minim.loadMP3File(actPlaylist.getTrack(track++).getFile());
+            audioplayer.play();
+        }
     }
 
     public void pause(){
@@ -49,19 +62,22 @@ public class MP3Player {
     }
 
     public void skip(){
-        play(actPlaylist.getTrack(2).getFile());
-
+        if(track < actPlaylist.getLength()){
+        play(actPlaylist.getTrack(track++).getFile());}
     }
     public void skipBack(){
-        play(actPlaylist.getTrack(1).getFile());
+        if(track > 0){
+        play(actPlaylist.getTrack(track--).getFile());}
+        else{ track = actPlaylist.getLength()-1; play(actPlaylist.getTrack(track--).getFile());}
     }
+
     public void shuffle(Boolean on){
         if(on){
-
             play(actPlaylist.getTrack(
                     (int) (Math.random()*actPlaylist.getLength())).getFile());
         }
     }
+
     public void repeat(Boolean on){
         if(on){audioplayer.loop();}
 

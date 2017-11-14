@@ -7,22 +7,25 @@ import java.nio.file.Paths;
 public class TrackSearcher {
     static BufferedWriter bw;
 
+    public TrackSearcher() {
+    }
+
     public static void main(String[] args) throws IOException {
-        walk("C:\\users\\Florian\\Music");
+        walk("C:\\users\\Florian Ortmann\\Music");
 
     }
 
     public static void walk(String path) throws IOException {
         File playlist = new File("playlist.M3U");
-        bw = new BufferedWriter(new FileWriter(playlist, playlist.exists()));
+       // bw = new BufferedWriter(new FileWriter(playlist, playlist.exists()));
         File root = new File(path);
         File[] list = root.listFiles();
 
-       /** for (File file : list
-                ) {
-            String f = file.toString();
-            if(file.isDirectory()){
-                walk(file.toString());
+        for (int i=0;i<list.length;i++) {
+            bw = new BufferedWriter(new FileWriter(playlist,playlist.exists()));
+            String f = list[i].toString();
+            if (list[i].isDirectory()) {
+                walk(list[i].toString());
             }
             if (f.endsWith(".mp3")) {
                 try {
@@ -33,8 +36,8 @@ public class TrackSearcher {
                     e.printStackTrace();
                 }
 
-            }**/
-            try {
+            }
+            /**try {
 
              Files.walk(Paths.get(path)).filter(Files::isRegularFile).forEach((f) ->{
              String file = f.toString();
@@ -47,11 +50,16 @@ public class TrackSearcher {
              }
              }
              } );
+             bw.flush();
              bw.close();}catch (Exception e){
              e.printStackTrace();
              }
-
+             **/
         }
+        bw.close();
+
+
 
     }
+}
 

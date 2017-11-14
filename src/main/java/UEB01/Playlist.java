@@ -31,6 +31,7 @@ public class Playlist {
         return playlist.size();
     }
 
+    public String getName(){return name;}
 
 
 }
